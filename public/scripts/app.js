@@ -20,7 +20,7 @@ var DecisionMakerApp = function (_React$Component) {
         _this.handlePick = _this.handlePick.bind(_this);
         _this.handleAddOption = _this.handleAddOption.bind(_this);
         _this.state = {
-            options: []
+            options: props.options
         };
         return _this;
     }
@@ -62,12 +62,12 @@ var DecisionMakerApp = function (_React$Component) {
     }, {
         key: "render",
         value: function render() {
-            var title = 'Decision Maker';
+
             var subtitle = 'helps you make decisions!';
             return React.createElement(
                 "div",
                 null,
-                React.createElement(Header, { title: title, subtitle: subtitle }),
+                React.createElement(Header, { subtitle: subtitle }),
                 React.createElement(Action, {
                     hasOptions: this.state.options.length > 0,
                     handlePick: this.handlePick
@@ -84,6 +84,10 @@ var DecisionMakerApp = function (_React$Component) {
     return DecisionMakerApp;
 }(React.Component);
 
+DecisionMakerApp.defaultProps = {
+    options: []
+};
+
 var Header = function Header(props) {
     return React.createElement(
         "div",
@@ -99,6 +103,11 @@ var Header = function Header(props) {
             props.subtitle
         )
     );
+};
+
+//Default props
+Header.defaultProps = {
+    title: "Decision Maker"
 };
 
 var Action = function Action(props) {
