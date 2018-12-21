@@ -10,11 +10,9 @@ class DecisionMakerApp extends React.Component {
     }
 
     handleDeleteOptions() {
-        this.setState(()=> {
-            return {
-                options: []
-            };
-        });
+        //return the object directly
+        //need parentheses to inlcude the object 
+        this.setState(() => ({options: []}));
     }
 
     handleAddOption(option) {

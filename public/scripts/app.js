@@ -28,10 +28,10 @@ var DecisionMakerApp = function (_React$Component) {
     _createClass(DecisionMakerApp, [{
         key: "handleDeleteOptions",
         value: function handleDeleteOptions() {
+            //return the object directly
+            //need parentheses to inlcude the object 
             this.setState(function () {
-                return {
-                    options: []
-                };
+                return { options: [] };
             });
         }
     }, {
