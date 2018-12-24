@@ -25,11 +25,9 @@ class DecisionMakerApp extends React.Component {
             return 'This option already exists.';
         }
 
-        this.setState((previousState)=> {
-            return {
-                options: previousState.options.concat(option)
-            };
-        });
+        this.setState((previousState) => ({
+            options: previousState.options.concat(option)
+        }));
     }
 
     handlePick() {
@@ -121,9 +119,7 @@ class AddOption extends React.Component {
         const option = e.target.elements.option.value.trim();
         const error = this.props.handleAddOption(option);
         console.log(error);
-        this.setState(() => {
-            return {error};
-        });
+        this.setState(() => ({error}));
     }
     render() {
         return (
