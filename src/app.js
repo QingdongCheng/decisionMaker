@@ -10,6 +10,33 @@ class DecisionMakerApp extends React.Component {
         };
     }
 
+
+    componentDidMount() {
+        try {
+            const optionsStr = localStorage.getItem('options');
+            const options = JSON.parse(optionsStr);
+            if (options) {
+                this.setState(() => ({
+                    options
+                }));
+            }
+                
+            } catch(e) {
+
+            }
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.options.length !== this.state.options.length) {
+            const json = JSON.stringify(this.state.options);
+            localStorage.setItem('options', json);           
+        }
+    }
+
+    componentWillUnmount() {
+        console.log("component will unmount.");
+    }
+
     handleDeleteOptions() {
         //return the object directly
         //need parentheses to inlcude the object 
@@ -25,7 +52,6 @@ class DecisionMakerApp extends React.Component {
     handleAddOption(option) {
         if (!option) {
             console.log("Error. invalid.");
-
             return 'Enter valid value to add item';
         } else if (this.state.options.indexOf(option) > -1) {
             console.log("Error. Already exists.");
@@ -97,6 +123,7 @@ const Options = (props) => {
     return ( 
         <div>
             <button onClick={props.handleDeleteOptions}>Remove All</button>
+            {props.options.length === 0 && <p>Please add an option to get started.</p>}
             {
                 props.options.map(option => (
                     <Option 
@@ -135,8 +162,10 @@ class AddOption extends React.Component {
         e.preventDefault();
         const option = e.target.elements.option.value.trim();
         const error = this.props.handleAddOption(option);
-        console.log(error);
         this.setState(() => ({error}));
+        if (!error) {
+            e.target.elements.option.value = '';
+        }
     }
     render() {
         return (
