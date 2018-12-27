@@ -3,6 +3,7 @@ import AddOption from './AddOption';
 import Options from './Options';
 import Action from './Action';
 import Header from './Header';
+import OptionModal from './OptionModal';
 
 export default class DecisionMakerApp extends React.Component {
     constructor(props) {
@@ -12,10 +13,10 @@ export default class DecisionMakerApp extends React.Component {
         this.handleAddOption = this.handleAddOption.bind(this);
         this.handleDeleteOption = this.handleDeleteOption.bind(this);
         this.state = {
-            options: props.options
+            options: props.options,
+            selectedOption: undefined
         };
     }
-
 
     componentDidMount() {
         try {
@@ -55,6 +56,12 @@ export default class DecisionMakerApp extends React.Component {
         }));
     }
 
+    handleModal = () => {
+      this.setState((prevState) => ({
+        selectedOption: undefined
+      }));
+    };
+
     handleAddOption(option) {
         if (!option) {
             console.log("Error. invalid.");
@@ -71,11 +78,12 @@ export default class DecisionMakerApp extends React.Component {
 
     handlePick() {
         const option = this.state.options[Math.floor(Math.random() * this.state.options.length)];
-        console.log("From handle pick.");
-        alert(option);
+        //console.log("From handle pick.");
+        this.setState((prevState) => ({
+          selectedOption: option
+        }));
     }
     render() {
-
         const subtitle = 'helps you make decisions!';
         return (
             <div>
@@ -90,6 +98,10 @@ export default class DecisionMakerApp extends React.Component {
                     handleDeleteOption={this.handleDeleteOption}
                 />
                 <AddOption handleAddOption={this.handleAddOption}/>
+                <OptionModal
+                  selectedOption={this.state.selectedOption}
+                  handleModal = {this.handleModal}
+                />
             </div>
         );
     }
